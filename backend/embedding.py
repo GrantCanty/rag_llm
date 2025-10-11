@@ -4,15 +4,11 @@ import os
 from util import logger
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
-import chromadb
 
 
 load_dotenv()
 
-client = chromadb.PersistentClient(path="./chroma_db")
-collection = client.get_or_create_collection(name="docs")
-
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/distilbert-base-nli-mean-tokens") 
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2") 
 model = SentenceTransformer(EMBEDDING_MODEL)
 
 def get_embedding(text: str) -> List[float]:
