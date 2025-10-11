@@ -3,6 +3,7 @@ import logging
 from util import logger  
 from embedding import get_embedding
 from dotenv import load_dotenv
+from util import get_available_text_files
 
 
 load_dotenv()
@@ -19,6 +20,7 @@ def add_documents_to_vector_store(docs: list[str], ids: list[str], filename: str
             ids=ids,
             metadatas=[{"filename": filename} for _ in docs]
         )
+
     except Exception as e:
         logger.error(f"Error adding documents to vector store: {e}")
         raise ValueError(f"Failed to add documents to vector store: {e}")
@@ -26,7 +28,7 @@ def add_documents_to_vector_store(docs: list[str], ids: list[str], filename: str
 
 def query_similar_documents(query: str, top_k: int = 3) -> list[str]:
     try:
-        context_files = get_uploaded_files()
+        context_files = get_available_text_files()
         print(f"Context files available: {context_files}")
         if len(context_files) == 0:
             return []
@@ -40,19 +42,3 @@ def query_similar_documents(query: str, top_k: int = 3) -> list[str]:
     except Exception as e:
         logger.error(f"Error querying similar documents: {e}")
         raise ValueError(f"Failed to query similar documents: {e}")
-    
-def delete_document_by_filename(filename: str) -> bool:
-    try:
-        # Step 1: Get all IDs where metadata filename matches
-        results = collection.get(where={"filename": filename})
-        ids_to_delete = results.get("ids", [])
-
-        if not ids_to_delete:
-            return False
-
-        # Step 2: Delete those vectors
-        collection.delete(ids=ids_to_delete)
-        return True
-    except Exception as e:
-        logger.error(f"Error deleting document by filename {filename}: {e}")
-        raise ValueError(f"Failed to delete document by filename {filename}: {e}")
