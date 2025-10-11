@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8000
 
 # Command to start the app
-CMD ["python3", "embeddings.py"]
+CMD ["python3", "backend/embeddings.py"]
