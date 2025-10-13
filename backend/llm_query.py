@@ -13,6 +13,8 @@ HUGGINGFACE_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
 if HUGGINGFACE_API_TOKEN == None:
     raise ValueError("Missing HuggingFace API Token ")
 LLM_MODEL = os.getenv("LLM_MODEL")
+if LLM_MODEL == None:
+    raise ValueError("Missing LLM Model Parameter")
 
 client = InferenceClient(model=LLM_MODEL, token=HUGGINGFACE_API_TOKEN, timeout=120)
 
@@ -20,14 +22,16 @@ def prompt_llm(prompt: str):
     try:
         
         SYSTEM_PROMPT = "You are a Personal assistant specialized in providing well formated answer from the context being provided."
-        message = [
+        '''messages = [
             {'role': 'system', 'prompt': SYSTEM_PROMPT},
             {'role': 'user',   'prompt': prompt}
-        ]
-        result = client.text_generation(
-            message,
-            temperature=0.7,
-            max_new_tokens=200
+        ]'''
+        messages = [{'role': 'user', 'content': prompt}]
+        result = client.chat.completions.create(
+            model=LLM_MODEL,
+            messages=messages,
+            temperature=0.1,
+            max_tokens=200
         )
         text = result.choices[0].message.content
         return text
