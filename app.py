@@ -1,12 +1,21 @@
 import streamlit as st
 import time
 
-from backend.llm_query import answer_user
-from backend.process_document import process_documents
-from backend.util import get_available_text_and_files
+@st.cache_resource
+def load_backend():
+    with st.spinner("🔧 Loading Ferrari LLM resources... this may take a minute"):
+        from backend.llm_query import answer_user
+        from backend.process_document import process_documents
+        from backend.util import get_available_text_and_files
 
-process_documents(get_available_text_and_files())
+        process_documents(get_available_text_and_files())
 
+    return answer_user
+
+# Main UI starts here
+answer_user = load_backend()
+
+st.success("Resources loaded successfully!")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -32,11 +41,8 @@ def response_generator(response: str):
         time.sleep(0.05)
 
 with st.chat_message("assistant"):
-    if prompt is not None:
-        answer = answer_user(prompt)
+    if prompt:
+        with st.spinner("Thinking..."):
+            answer = answer_user(prompt)
         response = st.write_stream(response_generator(answer))
         st.session_state.messages.append({"role": "assistant", "content": response})
-# Add assistant response to chat history
-#st.session_state.messages.append({"role": "assistant", "content": response})
-#p = answer_user(prompt)
-#print(p)
