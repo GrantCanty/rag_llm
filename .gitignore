@@ -1,1 +1,6 @@
 .env
+backend/documents/testing.txt
+backend/__pycache__
+backend/main.py
+test_venv
+chroma_db

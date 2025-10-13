@@ -1,5 +1,5 @@
 # Start from a small Python image
-FROM python:3.10-slim
+FROM python:3.12-slim
 
 # Set working directory inside container
 WORKDIR /app
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8000
 
 # Command to start the app
-CMD ["python3", "backend/embeddings.py"]
+CMD ["python3", "backend/main.py"]
