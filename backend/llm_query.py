@@ -20,13 +20,11 @@ client = InferenceClient(model=LLM_MODEL, token=HUGGINGFACE_API_TOKEN, timeout=1
 
 def prompt_llm(prompt: str):
     try:
-        
-        SYSTEM_PROMPT = "You are a Personal assistant specialized in providing well formated answer from the context being provided."
-        '''messages = [
-            {'role': 'system', 'prompt': SYSTEM_PROMPT},
-            {'role': 'user',   'prompt': prompt}
-        ]'''
-        messages = [{'role': 'user', 'content': prompt}]
+        SYSTEM_PROMPT = "You are a Personal assistant specialized in providing well formated answer from the context being provided by the user."
+        messages = [
+            {'role': 'system', 'content': SYSTEM_PROMPT},
+            {'role': 'user', 'content': prompt}
+        ]
         result = client.chat.completions.create(
             model=LLM_MODEL,
             messages=messages,
@@ -39,11 +37,9 @@ def prompt_llm(prompt: str):
         logger.exception(f"Error when prompting LLM: {e}")
         return "Could not process your query"
 
-
 def answer_user(query: str):
     try:
-        rag_response = (query_similar_documents(query))
-        
+        rag_response = query_similar_documents(query)
         if len(rag_response) == 0:
             return "No relevant documents for your query"
 
@@ -54,3 +50,4 @@ def answer_user(query: str):
     except Exception as e:
         logger.exception(f"Error answering question: {e}")
         return "Could not process your query"
+
