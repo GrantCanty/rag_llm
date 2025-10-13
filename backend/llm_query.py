@@ -1,7 +1,6 @@
-from chroma import query_similar_documents
-from process_document import process_documents
-from util import get_available_text_and_files
-from util import logger
+from .chroma import query_similar_documents
+from .process_document import process_documents
+from .util import get_available_text_and_files, logger
 from huggingface_hub import InferenceClient
 import os
 from dotenv import load_dotenv

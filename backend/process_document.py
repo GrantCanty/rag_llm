@@ -1,7 +1,7 @@
 import uuid
-from chroma import add_documents_to_vector_store
+from .chroma import add_documents_to_vector_store
 import re
-from util import logger
+from .util import logger
 
 
 def process_documents(doc_texts: dict[str, list[str]]) -> None:

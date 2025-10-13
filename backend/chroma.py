@@ -1,9 +1,9 @@
 import chromadb
 import logging
-from util import logger  
-from embedding import get_embedding
+from .util import logger  
+from .embedding import get_embedding
 from dotenv import load_dotenv
-from util import get_available_text_files
+from .util import get_available_text_files
 
 
 load_dotenv()
@@ -29,7 +29,6 @@ def add_documents_to_vector_store(docs: list[str], ids: list[str], filename: str
 def query_similar_documents(query: str, top_k: int = 3) -> list[str]:
     try:
         context_files = get_available_text_files()
-        print(f"Context files available: {context_files}")
         if len(context_files) == 0:
             return []
         query_vector = get_embedding(query)
