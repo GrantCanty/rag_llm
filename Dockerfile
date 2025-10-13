@@ -7,6 +7,8 @@ WORKDIR /app
 # Copy requirements into container
 COPY requirements.txt .
 
+#RUN git clone https://github.com/streamlit/streamlit-example.git .
+
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -14,7 +16,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose the port FastAPI runs on
-EXPOSE 8000
+EXPOSE 8501
+
+RUN ls
 
 # Command to start the app
-CMD ["python3", "backend/main.py"]
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]

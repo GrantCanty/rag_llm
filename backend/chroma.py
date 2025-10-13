@@ -1,9 +1,9 @@
 import chromadb
 import logging
-from util import logger  
-from embedding import get_embedding
+from .util import logger  
+from .embedding import get_embedding
 from dotenv import load_dotenv
-from util import get_available_text_files
+from .util import get_available_text_files
 
 
 load_dotenv()

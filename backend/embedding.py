@@ -1,7 +1,7 @@
 import requests
 from typing import List
 import os
-from util import logger
+from .util import logger
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 
