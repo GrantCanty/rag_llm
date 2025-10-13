@@ -13,8 +13,9 @@ model = SentenceTransformer(EMBEDDING_MODEL)
 
 def get_embedding(text: str) -> List[float]:
     try:
-        embedding = model.encode(text)
-        return embedding
+        if text is not None:
+            embedding = model.encode(text)
+            return embedding
     except Exception as e:
         logger.error(f'error getting embeddings: {e}')
         raise ValueError('failed to get embedding')

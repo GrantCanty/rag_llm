@@ -29,7 +29,6 @@ def add_documents_to_vector_store(docs: list[str], ids: list[str], filename: str
 def query_similar_documents(query: str, top_k: int = 3) -> list[str]:
     try:
         context_files = get_available_text_files()
-        print(f"Context files available: {context_files}")
         if len(context_files) == 0:
             return []
         query_vector = get_embedding(query)
