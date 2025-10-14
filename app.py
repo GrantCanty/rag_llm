@@ -3,7 +3,7 @@ import time
 
 @st.cache_resource
 def load_backend():
-    with st.spinner("🔧 Loading Ferrari LLM resources... this may take a minute"):
+    with st.spinner():
         from backend.llm_query import answer_user
         from backend.process_document import process_documents
         from backend.util import get_available_text_and_files
