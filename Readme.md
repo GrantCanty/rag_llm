@@ -8,13 +8,20 @@ This is a RAG AI Chatbot that can answer questions related to Ferrari's recent f
 4. Return the results of the query to the front end  
 
 ## Tips to run the project
-This project users Docker to ensure minimal compatability issues between machines. Ensure that Docker is installed. It does take a while to build the Docker image and have it running    
+This project users Docker to ensure minimal compatability issues between machines. Ensure that Docker is installed. It does take a while to build the Docker image and have it running  
+
+Create a .`env` file in the `backend` folder before running. It should have the following fields:  
+
+.env  
+`LLM_MODEL=mistralai/Mixtral-8x7B-Instruct-v0.1`  
+`EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2`  
+`HUGGINGFACE_API_TOKEN=(enter your API token from Hugging Face)`  
 
 Follow these steps to run the project:  
 1. Open your command line  
 2. Clone the github repo to your local machine  
 3. Ensure that Docker is running  
-4. Enter `docker built -t rag-llm .` to build the Docker file  
+4. Enter `docker build -t rag-llm .` to build the Docker file  
 5. Enter `docker run -p 8501:8501 rag-llm` to run the image  
 6. Open your browser and visit `localhost:8501` to interact with the chat bot  
 
