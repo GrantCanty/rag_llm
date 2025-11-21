@@ -3,3 +3,7 @@ requests
 sentence-transformers
 huggingface_hub
 streamlit
+transformers
+accelerate
+ipywidgets
+tqdm-loggable

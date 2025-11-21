@@ -4,3 +4,6 @@ backend/__pycache__
 backend/main.py
 test_venv
 chroma_db
+backend/documents/ferrari_earnings_call.txt
+backend/.DS_store
+qwen_model
