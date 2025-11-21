@@ -12,16 +12,17 @@ This project users Docker to ensure minimal compatability issues between machine
 
 Create a .`env` file in the `backend` folder before running. It should have the following fields:  
 
-.env  
-`LLM_MODEL=mistralai/Mixtral-8x7B-Instruct-v0.1`  
-`EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2`  
-`HUGGINGFACE_API_TOKEN=(enter your API token from Hugging Face)`  
+.env   
+`EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2`   
 
 Follow these steps to run the project:  
 1. Open your command line  
 2. Clone the github repo to your local machine  
-3. Ensure that Docker is running  
-4. Enter `docker build -t rag-llm .` to build the Docker file  
-5. Enter `docker run -p 8501:8501 rag-llm` to run the image  
-6. Open your browser and visit `localhost:8501` to interact with the chat bot  
-
+3. Clone repo of Qwen3 to local machine using the following command: `git clone https://huggingface.co/Qwen/Qwen3-0.6B qwen_model`. 
+4. Ensure that model has properly imported. Inspect the `tokenizer.json` file inside the `qwen_model` folder  
+  4.1 If the file starts with something like `{"version": 1.0 ...}`, it has imported correctly  
+  4.2 If you see a link, it has not imported correctly. You may need to install `git lfs install` before you clone the model again  
+5. Ensure that Docker is running  
+6. Enter `docker compose up --build -d` to build and run the Docker file  
+7. Open your browser and visit `localhost:8501` to interact with the chat bot  
+8. To close the system, enter `docker compose down`  
